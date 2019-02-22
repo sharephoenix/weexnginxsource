@@ -1,13 +1,14 @@
 <template>
   <div>
     <div class="top">
-      <img class="avator" src="user.avatar"/>
+      <div class="avator"><img src="user.avatar"/></div>
+      <div class="register" @click="toregister"><text class="registertext">授权登录</text></div>
     </div>
-    <div class="content"></div>
-    <!--<text class="message">show your login user info:::</text>-->
-    <!--<text> {{user}} </text>-->
-    <!--<button class="buttoncls" @click="getLoginInfo"> <text>tologin</text></button>-->
-    <!--<button class="buttoncls" @click="routerpush"> <text>tologin</text></button>-->
+    <div class="content">
+    <div v-for="item in list" v-bind:key="item.title">
+      <div class="row"> <text> {{item}} </text> </div>
+    </div>
+    </div>
   </div>
 </template>
 
@@ -31,7 +32,13 @@ export default {
     return {
       user: {
         message: ''
-      }
+      },
+      list: [
+        {title: 'title', detail: 'this is detail'},
+        {title: 'title', detail: 'this is detail'},
+        {title: 'title', detail: 'this is detail'},
+        {title: 'title', detail: 'this is detail'}
+      ]
     }
   },
   methods: {
@@ -54,6 +61,12 @@ export default {
     routerpush: function () {
       modal.toast({ 'message': 'get geolocation', 'duration': 2 })
       this.$router.push('/userinfo')
+    },
+    toregister: function () {
+      modal.toast({ 'message': 'to register', 'duration': 2 })
+    },
+    aaction: function () {
+      console.log('aactionaaction')
     }
   },
   mounted () {
@@ -66,23 +79,38 @@ export default {
 <style scoped>
   .top {
     background-color: #00B4FF;
-    height: 100px;
+    height: 200px;
   }
   .avator {
-    left: 25px;
-    top: 25px;
-    width: 50px;
-    height: 50px;
+    margin-left: 25px;
+    margin-top: 25px;
+    width: 150px;
+    height: 150px;
     background-color: red;
-    border-radius: 25px;
+    border-radius: 75px;
+  }
+  .register {
+    position: absolute;
+    background-color: yellow;
+    line-height: 150px;
+    margin-left: 200px;
+    margin-top: 75px;
+    height: 50px;
+    width: 200px;
+    border-radius: 3px;
+  }
+  .registertext {
+    lines: 1;
+    color: #bb1515;
+    font-size: 32px;
   }
   .content {
     background-color: #dddddd;
     flex: 1;
   }
-.buttoncls {
-  width: 330px;
-  height: 330px;
-  background-color: red;
-}
+  .row {
+    height: auto;
+    margin-top: 5px;
+    background-color: yellow;
+  }
 </style>

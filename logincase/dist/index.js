@@ -2866,24 +2866,38 @@ module.exports = __vue_exports__
 module.exports = {
   "top": {
     "backgroundColor": "#00B4FF",
-    "height": "100"
+    "height": "200"
   },
   "avator": {
-    "left": "25",
-    "top": "25",
-    "width": "50",
-    "height": "50",
+    "marginLeft": "25",
+    "marginTop": "25",
+    "width": "150",
+    "height": "150",
     "backgroundColor": "#FF0000",
-    "borderRadius": "25"
+    "borderRadius": "75"
+  },
+  "register": {
+    "position": "absolute",
+    "backgroundColor": "#FFFF00",
+    "lineHeight": "150",
+    "marginLeft": "200",
+    "marginTop": "75",
+    "height": "50",
+    "width": "200",
+    "borderRadius": "3"
+  },
+  "registertext": {
+    "lines": 1,
+    "color": "#bb1515",
+    "fontSize": "32"
   },
   "content": {
     "backgroundColor": "#dddddd",
     "flex": 1
   },
-  "buttoncls": {
-    "width": "330",
-    "height": "330",
-    "backgroundColor": "#FF0000"
+  "row": {
+    "marginTop": "5",
+    "backgroundColor": "#FFFF00"
   }
 }
 
@@ -2897,6 +2911,7 @@ module.exports = {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+//
 //
 //
 //
@@ -2930,7 +2945,8 @@ exports.default = {
     return {
       user: {
         message: ''
-      }
+      },
+      list: [{ title: 'title', detail: 'this is detail' }, { title: 'title', detail: 'this is detail' }, { title: 'title', detail: 'this is detail' }, { title: 'title', detail: 'this is detail' }]
     };
   },
 
@@ -2954,6 +2970,12 @@ exports.default = {
     routerpush: function routerpush() {
       modal.toast({ 'message': 'get geolocation', 'duration': 2 });
       this.$router.push('/userinfo');
+    },
+    toregister: function toregister() {
+      modal.toast({ 'message': 'to register', 'duration': 2 });
+    },
+    aaction: function aaction() {
+      console.log('aactionaaction');
     }
   },
   mounted: function mounted() {
@@ -2967,17 +2989,31 @@ exports.default = {
 /***/ (function(module, exports) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _vm._m(0)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_c('div', {
     staticClass: ["top"]
+  }, [_vm._m(0), _c('div', {
+    staticClass: ["register"],
+    on: {
+      "click": _vm.toregister
+    }
+  }, [_c('text', {
+    staticClass: ["registertext"]
+  }, [_vm._v("授权登录")])])]), _c('div', {
+    staticClass: ["content"]
+  }, _vm._l((_vm.list), function(item) {
+    return _c('div', {
+      key: item.title
+    }, [_c('div', {
+      staticClass: ["row"]
+    }, [_c('text', [_vm._v(" " + _vm._s(item) + " ")])])])
+  }))])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: ["avator"]
   }, [_c('img', {
-    staticClass: ["avator"],
     attrs: {
       "src": "user.avatar"
     }
-  })]), _c('div', {
-    staticClass: ["content"]
   })])
 }]}
 module.exports.render._withStripped = true

@@ -2903,10 +2903,10 @@ module.exports = {
   "registerPanel": {
     "position": "fixed",
     "width": "750",
-    "height": "300",
+    "height": 100,
     "bottom": "0",
-    "backgroundColor": "#00B4FF",
-    "transform": "translate(0px, 300px) scale(0.2)"
+    "background": "rgba(255,0,0,1)",
+    "transform": "translate(0px, 100%) scale(0.2)"
   }
 }
 
@@ -2999,12 +2999,12 @@ exports.default = {
     //   this.move()
     // },
     move: function move() {
-      var testEl = this.$refs['test'];
-      console.log('+++' + testEl);
-      if (testEl !== undefined) {
-        animation.transition(testEl, {
+      var loginApplyEl = this.$refs['loginApplyEl'];
+      console.log(this.loginApplyWidth + '  ' + this.loginApplyHeight);
+      console.log('screen_width::end');
+      if (loginApplyEl !== undefined) {
+        animation.transition(loginApplyEl, {
           styles: {
-            backgroundColor: '#FF0000',
             transform: 'translate(0px, 0px) scale(1)',
             transformOrigin: 'center center'
           },
@@ -3019,13 +3019,14 @@ exports.default = {
       }
     },
     hiddenLoginApply: function hiddenLoginApply() {
-      var testEl = this.$refs.test;
-      console.log('+++' + testEl);
-      if (testEl !== undefined) {
-        animation.transition(testEl, {
+      var loginApplyEl = this.$refs.loginApplyEl;
+      console.log('+++' + loginApplyEl);
+      console.log(this.loginApplyWidth + '  ' + this.loginApplyHeight);
+      if (loginApplyEl !== undefined) {
+        animation.transition(loginApplyEl, {
           styles: {
             backgroundColor: '#FF0000',
-            transform: 'translate(0px, 300px) scale(1)',
+            transform: 'translate(0px, ' + this.loginApplyHeight + 'px) scale(1)',
             transformOrigin: 'center center'
           },
           duration: 800,
@@ -3049,6 +3050,8 @@ exports.default = {
   },
   mounted: function mounted() {
     this.getLoginInfo();
+    this.loginApplyWidth = this.$getConfig().env.deviceWidth;
+    this.loginApplyHeight = this.$getConfig().env.deviceHeight;
   }
 };
 
@@ -3079,7 +3082,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: ["row"]
     }, [_c('text', [_vm._v(" " + _vm._s(item) + " ")])])])
   })), _c('LoginApply', {
-    ref: "test",
+    ref: "loginApplyEl",
     staticClass: ["registerPanel"],
     attrs: {
       "hiddenself": _vm.hiddenself
@@ -3375,7 +3378,7 @@ module.exports = {
     "position": "absolute",
     "flex": 1,
     "width": "750",
-    "backgroundColor": "#FF0000",
+    "background": "rgba(255,0,0,1)",
     "zIndex": 1999,
     "overflow": "hidden"
   },
@@ -3429,7 +3432,6 @@ exports.default = {
     hiddenselfbb: function hiddenselfbb() {
       console.log('+++' + this.hiddenself + '------');
       // this.hiddenself('bbbbbbb')
-
       // childByValue是在父组件on监听的方法
       // 第二个参数this.childValue是需要传的值
       this.$emit('hiddenLoginApply', 'aaaaaa');
@@ -3448,9 +3450,7 @@ exports.default = {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    attrs: {
-      "refs": "test"
-    }
+    staticClass: ["“body”"]
   }, [_c('div', [_c('div', [_c('text', [_vm._v(_vm._s(_vm.icon))])]), _c('div', [_c('text', [_vm._v(_vm._s(_vm.weexname))])]), _c('div', {
     staticClass: ["myinfo"],
     on: {

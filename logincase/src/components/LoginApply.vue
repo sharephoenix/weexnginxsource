@@ -1,5 +1,5 @@
 <template>
-<div refs="test">
+<div class=“body”>
   <div >
     <div><text>{{icon}}</text></div>
     <div><text>{{weexname}}</text></div>
@@ -30,10 +30,9 @@ export default {
     hiddenselfbb: function () {
       console.log('+++' + this.hiddenself + '------')
       // this.hiddenself('bbbbbbb')
-      
       // childByValue是在父组件on监听的方法
-        // 第二个参数this.childValue是需要传的值
-        this.$emit('hiddenLoginApply', 'aaaaaa')
+      // 第二个参数this.childValue是需要传的值
+      this.$emit('hiddenLoginApply', 'aaaaaa')
     }
   },
   mounted () {
@@ -49,7 +48,8 @@ export default {
     position: absolute;
     flex: 1;
     width: 750px;
-    background-color: red;
+    background: rgba(255,0,0,1);
+    /* background-color: rgba(255,0,0,1);; */
     z-index: 1999;
     overflow: hidden;
   }

@@ -10,7 +10,7 @@
     </div>
     </div>
     <!-- <LoginApply ref="test" class="registerPanel"></LoginApply> -->
-    <LoginApply ref="test" class="registerPanel" :hiddenself="hiddenself" @hiddenLoginApply="hiddenLoginApply"></LoginApply>
+    <LoginApply ref="loginApplyEl" class="registerPanel" :hiddenself="hiddenself" @hiddenLoginApply="hiddenLoginApply"></LoginApply>
   </div>
 </template>
 
@@ -75,12 +75,12 @@ export default {
     //   this.move()
     // },
     move: function () {
-      var testEl = this.$refs['test']
-      console.log('+++' + testEl)
-      if (testEl !== undefined) {
-        animation.transition(testEl, {
+      const loginApplyEl = this.$refs['loginApplyEl']
+      console.log(this.loginApplyWidth + '  ' + this.loginApplyHeight)
+      console.log('screen_width::end')
+      if (loginApplyEl !== undefined) {
+        animation.transition(loginApplyEl, {
           styles: {
-            backgroundColor: '#FF0000',
             transform: 'translate(0px, 0px) scale(1)',
             transformOrigin: 'center center'
           },
@@ -88,20 +88,21 @@ export default {
           timingFunction: 'ease',
           delay: 0
         }, function () {
-          modal.toast({ message: 'animation finished.'})
+          modal.toast({message: 'animation finished.'})
         })
       } else {
         console.log('没有找到元素')
       }
     },
     hiddenLoginApply: function () {
-      var testEl = this.$refs.test
-      console.log('+++' + testEl)
-      if (testEl !== undefined) {
-        animation.transition(testEl, {
+      const loginApplyEl = this.$refs.loginApplyEl
+      console.log('+++' + loginApplyEl)
+      console.log(this.loginApplyWidth + '  ' + this.loginApplyHeight)
+      if (loginApplyEl !== undefined) {
+        animation.transition(loginApplyEl, {
           styles: {
             backgroundColor: '#FF0000',
-            transform: 'translate(0px, 300px) scale(1)',
+            transform: 'translate(0px, ' + this.loginApplyHeight + 'px) scale(1)',
             transformOrigin: 'center center'
           },
           duration: 800,
@@ -125,6 +126,8 @@ export default {
   },
   mounted () {
     this.getLoginInfo()
+    this.loginApplyWidth = this.$getConfig().env.deviceWidth
+    this.loginApplyHeight = this.$getConfig().env.deviceHeight
   }
 }
 </script>
@@ -169,7 +172,7 @@ export default {
     background-color: yellow;
   }
   .registerPanel {
-    position: fixed; width: 750px; height: 300px; bottom: 0px; background-color: #00B4FF;
-    transform: translate(0px, 300px) scale(0.2);
+    position: fixed; width: 750px; height: 100%; bottom: 0px; background: rgba(255,0,0,1);;
+    transform: translate(0px, 100%) scale(0.2);
   }
 </style>

@@ -1,23 +1,28 @@
 <template>
-  <div>
+  <div id="container">
     <div class="top">
       <div class="avator"><img src="user.avatar"/></div>
-      <div class="register" @click="toregister"><text class="registertext">授权登录</text></div>
+      <div class="register" @click="move"><text class="registertext">授权登录</text></div>
     </div>
     <div class="content">
     <div v-for="item in list" v-bind:key="item.title">
       <div class="row"> <text> {{item}} </text> </div>
     </div>
     </div>
+    <!-- <LoginApply ref="test" class="registerPanel"></LoginApply> -->
+    <LoginApply ref="test" class="registerPanel" :hiddenself="hiddenself" @hiddenLoginApply="hiddenLoginApply"></LoginApply>
   </div>
 </template>
 
 <script>
+// import Vue from 'vue'
+import LoginApply from '@/components/LoginApply'
+const animation = weex.requireModule('animation')
 
 const modal = weex.requireModule('modal')
 const loginInfo = weex.requireModule('XHBLoginInfo')
-
 const globalEvent = weex.requireModule('globalEvent')
+
 globalEvent.addEventListener('viewappear', function (e) {
   modal.toast({ 'message': 'viewappear' + e, 'duration': 2 })
 })
@@ -34,28 +39,23 @@ export default {
         message: ''
       },
       list: [
-        {title: 'title', detail: 'this is detail'},
-        {title: 'title', detail: 'this is detail'},
-        {title: 'title', detail: 'this is detail'},
-        {title: 'title', detail: 'this is detail'}
+        {title: 'title0', detail: 'this is detail'},
+        {title: 'title1', detail: 'this is detail'},
+        {title: 'title2', detail: 'this is detail'},
+        {title: 'title3', detail: 'this is detail'}
       ]
     }
   },
   methods: {
     getLoginInfo: function () {
-      console.log('++++' + this.$userInfo)
-      console.log('++++' + this.$router)
       this.user = {message: 'this is my message!!!'}
       if (loginInfo !== undefined) {
-        loginInfo.getLocalUserInfo()
         const _this = this
         loginInfo.getLocalUserInfo(function (params) {
-          _this.user = params
+          _this.user = this.$userInfo.userModelTransform(params)
           modal.toast({ 'message': 'get geolocation' + params.name, 'duration': 2 })
         })
       }
-      this.$userInfo.setLoginid('this is my id')
-      console.log(this.$userInfo)
       this.user = {message: this.$userInfo.getLoginid()}
     },
     routerpush: function () {
@@ -67,11 +67,64 @@ export default {
     },
     aaction: function () {
       console.log('aactionaaction')
+    },
+    // insert () {
+    //   const BcConstructor = Vue.extend(LoginApply)
+    //   const instance = new BcConstructor()
+    //   instance.$mount('#container')
+    //   this.move()
+    // },
+    move: function () {
+      var testEl = this.$refs['test']
+      console.log('+++' + testEl)
+      if (testEl !== undefined) {
+        animation.transition(testEl, {
+          styles: {
+            backgroundColor: '#FF0000',
+            transform: 'translate(0px, 0px) scale(1)',
+            transformOrigin: 'center center'
+          },
+          duration: 800,
+          timingFunction: 'ease',
+          delay: 0
+        }, function () {
+          modal.toast({ message: 'animation finished.'})
+        })
+      } else {
+        console.log('没有找到元素')
+      }
+    },
+    hiddenLoginApply: function () {
+      var testEl = this.$refs.test
+      console.log('+++' + testEl)
+      if (testEl !== undefined) {
+        animation.transition(testEl, {
+          styles: {
+            backgroundColor: '#FF0000',
+            transform: 'translate(0px, 300px) scale(1)',
+            transformOrigin: 'center center'
+          },
+          duration: 800,
+          timingFunction: 'ease',
+          delay: 0
+        }, function () {
+          modal.toast({ message: 'animation finished.' })
+        })
+      } else {
+        console.log('没有找到元素')
+      }
+      console.log('action')
+    },
+    hiddenself: function (params) {
+      this.hiddenLoginApply()
+      console.log(params + '@@@@@')
     }
   },
+  components: {
+    LoginApply
+  },
   mounted () {
-    modal.toast({ 'message': 'mounted' + this.$userInfo.getLoginid(), 'duration': 2 })
-    this.user = {message: this.$userInfo.getLoginid()}
+    this.getLoginInfo()
   }
 }
 </script>
@@ -90,6 +143,7 @@ export default {
     border-radius: 75px;
   }
   .register {
+    display: inline-block;
     position: absolute;
     background-color: yellow;
     line-height: 150px;
@@ -98,6 +152,7 @@ export default {
     height: 50px;
     width: 200px;
     border-radius: 3px;
+    /* transform: translate(250px, 1000px) scale(1.5); */
   }
   .registertext {
     lines: 1;
@@ -112,5 +167,9 @@ export default {
     height: auto;
     margin-top: 5px;
     background-color: yellow;
+  }
+  .registerPanel {
+    position: fixed; width: 750px; height: 300px; bottom: 0px; background-color: #00B4FF;
+    transform: translate(0px, 300px) scale(0.2);
   }
 </style>

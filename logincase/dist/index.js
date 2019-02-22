@@ -2877,6 +2877,7 @@ module.exports = {
     "borderRadius": "75"
   },
   "register": {
+    "display": "inline-block",
     "position": "absolute",
     "backgroundColor": "#FFFF00",
     "lineHeight": "150",
@@ -2898,6 +2899,14 @@ module.exports = {
   "row": {
     "marginTop": "5",
     "backgroundColor": "#FFFF00"
+  },
+  "registerPanel": {
+    "position": "fixed",
+    "width": "750",
+    "height": "300",
+    "bottom": "0",
+    "backgroundColor": "#00B4FF",
+    "transform": "translate(0px, 300px) scale(0.2)"
   }
 }
 
@@ -2911,6 +2920,14 @@ module.exports = {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var _LoginApply = __webpack_require__(16);
+
+var _LoginApply2 = _interopRequireDefault(_LoginApply);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var animation = weex.requireModule('animation'); //
 //
 //
 //
@@ -2925,12 +2942,15 @@ Object.defineProperty(exports, "__esModule", {
 //
 //
 //
+//
+
+// import Vue from 'vue'
 
 
 var modal = weex.requireModule('modal');
 var loginInfo = weex.requireModule('XHBLoginInfo');
-
 var globalEvent = weex.requireModule('globalEvent');
+
 globalEvent.addEventListener('viewappear', function (e) {
   modal.toast({ 'message': 'viewappear' + e, 'duration': 2 });
 });
@@ -2946,25 +2966,20 @@ exports.default = {
       user: {
         message: ''
       },
-      list: [{ title: 'title', detail: 'this is detail' }, { title: 'title', detail: 'this is detail' }, { title: 'title', detail: 'this is detail' }, { title: 'title', detail: 'this is detail' }]
+      list: [{ title: 'title0', detail: 'this is detail' }, { title: 'title1', detail: 'this is detail' }, { title: 'title2', detail: 'this is detail' }, { title: 'title3', detail: 'this is detail' }]
     };
   },
 
   methods: {
     getLoginInfo: function getLoginInfo() {
-      console.log('++++' + this.$userInfo);
-      console.log('++++' + this.$router);
       this.user = { message: 'this is my message!!!' };
       if (loginInfo !== undefined) {
-        loginInfo.getLocalUserInfo();
         var _this = this;
         loginInfo.getLocalUserInfo(function (params) {
-          _this.user = params;
+          _this.user = this.$userInfo.userModelTransform(params);
           modal.toast({ 'message': 'get geolocation' + params.name, 'duration': 2 });
         });
       }
-      this.$userInfo.setLoginid('this is my id');
-      console.log(this.$userInfo);
       this.user = { message: this.$userInfo.getLoginid() };
     },
     routerpush: function routerpush() {
@@ -2976,11 +2991,64 @@ exports.default = {
     },
     aaction: function aaction() {
       console.log('aactionaaction');
+    },
+    // insert () {
+    //   const BcConstructor = Vue.extend(LoginApply)
+    //   const instance = new BcConstructor()
+    //   instance.$mount('#container')
+    //   this.move()
+    // },
+    move: function move() {
+      var testEl = this.$refs['test'];
+      console.log('+++' + testEl);
+      if (testEl !== undefined) {
+        animation.transition(testEl, {
+          styles: {
+            backgroundColor: '#FF0000',
+            transform: 'translate(0px, 0px) scale(1)',
+            transformOrigin: 'center center'
+          },
+          duration: 800,
+          timingFunction: 'ease',
+          delay: 0
+        }, function () {
+          modal.toast({ message: 'animation finished.' });
+        });
+      } else {
+        console.log('没有找到元素');
+      }
+    },
+    hiddenLoginApply: function hiddenLoginApply() {
+      var testEl = this.$refs.test;
+      console.log('+++' + testEl);
+      if (testEl !== undefined) {
+        animation.transition(testEl, {
+          styles: {
+            backgroundColor: '#FF0000',
+            transform: 'translate(0px, 300px) scale(1)',
+            transformOrigin: 'center center'
+          },
+          duration: 800,
+          timingFunction: 'ease',
+          delay: 0
+        }, function () {
+          modal.toast({ message: 'animation finished.' });
+        });
+      } else {
+        console.log('没有找到元素');
+      }
+      console.log('action');
+    },
+    hiddenself: function hiddenself(params) {
+      this.hiddenLoginApply();
+      console.log(params + '@@@@@');
     }
   },
+  components: {
+    LoginApply: _LoginApply2.default
+  },
   mounted: function mounted() {
-    modal.toast({ 'message': 'mounted' + this.$userInfo.getLoginid(), 'duration': 2 });
-    this.user = { message: this.$userInfo.getLoginid() };
+    this.getLoginInfo();
   }
 };
 
@@ -2989,12 +3057,16 @@ exports.default = {
 /***/ (function(module, exports) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('div', {
+  return _c('div', {
+    attrs: {
+      "id": "container"
+    }
+  }, [_c('div', {
     staticClass: ["top"]
   }, [_vm._m(0), _c('div', {
     staticClass: ["register"],
     on: {
-      "click": _vm.toregister
+      "click": _vm.move
     }
   }, [_c('text', {
     staticClass: ["registertext"]
@@ -3006,7 +3078,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('div', {
       staticClass: ["row"]
     }, [_c('text', [_vm._v(" " + _vm._s(item) + " ")])])])
-  }))])
+  })), _c('LoginApply', {
+    ref: "test",
+    staticClass: ["registerPanel"],
+    attrs: {
+      "hiddenself": _vm.hiddenself
+    },
+    on: {
+      "hiddenLoginApply": _vm.hiddenLoginApply
+    }
+  })], 1)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: ["avator"]
@@ -3101,7 +3182,6 @@ var modal = weex.requireModule('modal'); //
 //
 //
 //
-
 
 exports.default = {
   name: 'UserInfo',
@@ -3239,6 +3319,152 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', {
     staticClass: ["wrapper"]
   }, [_c('router-view')], 1)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __vue_exports__, __vue_options__
+var __vue_styles__ = []
+
+/* styles */
+__vue_styles__.push(__webpack_require__(17)
+)
+
+/* script */
+__vue_exports__ = __webpack_require__(18)
+
+/* template */
+var __vue_template__ = __webpack_require__(19)
+__vue_options__ = __vue_exports__ = __vue_exports__ || {}
+if (
+  typeof __vue_exports__.default === "object" ||
+  typeof __vue_exports__.default === "function"
+) {
+if (Object.keys(__vue_exports__).some(function (key) { return key !== "default" && key !== "__esModule" })) {console.error("named exports are not supported in *.vue files.")}
+__vue_options__ = __vue_exports__ = __vue_exports__.default
+}
+if (typeof __vue_options__ === "function") {
+  __vue_options__ = __vue_options__.options
+}
+__vue_options__.__file = "/Users/apple/weexnginxsource/logincase/src/components/LoginApply.vue"
+__vue_options__.render = __vue_template__.render
+__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
+__vue_options__._scopeId = "data-v-f1c8a596"
+__vue_options__.style = __vue_options__.style || {}
+__vue_styles__.forEach(function (module) {
+  for (var name in module) {
+    __vue_options__.style[name] = module[name]
+  }
+})
+if (typeof __register_static_styles__ === "function") {
+  __register_static_styles__(__vue_options__._scopeId, __vue_styles__)
+}
+
+module.exports = __vue_exports__
+
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports) {
+
+module.exports = {
+  "body": {
+    "position": "absolute",
+    "flex": 1,
+    "width": "750",
+    "backgroundColor": "#FF0000",
+    "zIndex": 1999,
+    "overflow": "hidden"
+  },
+  "myinfo": {
+    "width": "300",
+    "height": "300",
+    "backgroundColor": "#008000"
+  }
+}
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+exports.default = {
+  name: 'LoginApply',
+  props: ['hiddenself'],
+  data: function data() {
+    return {
+      icon: '',
+      weexname: '',
+      getinfo: '获取你的昵称，头像，地区',
+      nickname: 'nickname',
+      avator: '头像',
+      userinfo: '晓黑板个人信息'
+    };
+  },
+
+  methods: {
+    hiddenselfbb: function hiddenselfbb() {
+      console.log('+++' + this.hiddenself + '------');
+      // this.hiddenself('bbbbbbb')
+
+      // childByValue是在父组件on监听的方法
+      // 第二个参数this.childValue是需要传的值
+      this.$emit('hiddenLoginApply', 'aaaaaa');
+    }
+  },
+  mounted: function mounted() {
+    var userinfo = this.$userinfo;
+    this.avator = userinfo.avator;
+    this.nickname = userinfo.realname;
+  }
+};
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    attrs: {
+      "refs": "test"
+    }
+  }, [_c('div', [_c('div', [_c('text', [_vm._v(_vm._s(_vm.icon))])]), _c('div', [_c('text', [_vm._v(_vm._s(_vm.weexname))])]), _c('div', {
+    staticClass: ["myinfo"],
+    on: {
+      "click": _vm.hiddenselfbb
+    }
+  }, [_c('text', [_vm._v(_vm._s(_vm.getinfo))])]), _c('div', [_c('text', [_vm._v(_vm._s(_vm.nickname))])]), _c('div', [_c('text', [_vm._v(_vm._s(_vm.avator))]), _c('image', {
+    staticStyle: {
+      width: "99px",
+      height: "99px"
+    },
+    attrs: {
+      "src": "avator"
+    }
+  })]), _c('div', [_c('text', [_vm._v(_vm._s(_vm.userinfo))])])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 

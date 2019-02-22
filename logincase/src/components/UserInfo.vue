@@ -6,7 +6,6 @@
 </template>
 
 <script>
-
 import UserModel from '@/models/UserModel'
 const modal = weex.requireModule('modal')
 

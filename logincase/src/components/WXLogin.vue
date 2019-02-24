@@ -104,7 +104,7 @@ export default {
         animation.transition(loginApplyEl, {
           styles: {
             backgroundColor: 'rgba(255,0,0,0.5)',
-            transform: 'translate(0px, 1450px) scale(1)',
+            transform: 'translate(0px, 100%) scale(1)',
             transformOrigin: 'center center'
           },
           duration: 800,
@@ -175,8 +175,8 @@ export default {
     background-color: yellow;
   }
   .registerPanel {
-    position: fixed; width: 750px; height: 1450px; top:0; left:0; right:0; bottom: 0px;
-    transform: translate(0px, 1450px) scale(1);
+    position: fixed; width: 750px; height: 100%; top:0; left:0; right:0; bottom: 0px;
+    transform: translate(0px, 100%) scale(1);
     background-color: rgba(255,0,0,0.5);;
   }
 </style>

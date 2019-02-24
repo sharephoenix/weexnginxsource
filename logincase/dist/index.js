@@ -2910,12 +2910,12 @@ module.exports = {
   "registerPanel": {
     "position": "fixed",
     "width": "750",
-    "height": "1450",
+    "height": 100,
     "top": 0,
     "left": 0,
     "right": 0,
     "bottom": "0",
-    "transform": "translate(0px, 1450px) scale(1)",
+    "transform": "translate(0px, 100%) scale(1)",
     "backgroundColor": "rgba(255,0,0,0.5)"
   }
 }
@@ -3034,7 +3034,7 @@ exports.default = {
         animation.transition(loginApplyEl, {
           styles: {
             backgroundColor: 'rgba(255,0,0,0.5)',
-            transform: 'translate(0px, 1450px) scale(1)',
+            transform: 'translate(0px, 100%) scale(1)',
             transformOrigin: 'center center'
           },
           duration: 800,

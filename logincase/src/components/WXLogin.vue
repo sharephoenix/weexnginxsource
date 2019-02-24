@@ -1,8 +1,8 @@
 <template>
   <div id="container">
     <div class="top">
-      <div class="avator"><img src="user.avatar"/></div>
-      <div class="register" @click="move"><text class="registertext">授权登录</text></div>
+      <div class="avator"><img src=""/></div>
+      <div class="register" @click="showLoginApply"><text class="registertext">授权登录</text></div>
     </div>
     <div class="content">
     <div v-for="item in list" v-bind:key="item.title">
@@ -10,7 +10,7 @@
     </div>
     </div>
     <!-- <LoginApply ref="test" class="registerPanel"></LoginApply> -->
-    <LoginApply ref="loginApplyEl" class="registerPanel" :hiddenself="hiddenself" @hiddenLoginApply="hiddenLoginApply"></LoginApply>
+    <LoginApply ref="loginApplyEl" class="registerPanel" :hiddenself="hiddenself" ></LoginApply>
   </div>
 </template>
 
@@ -40,6 +40,10 @@ export default {
       },
       list: [
         {title: 'title0', detail: 'this is detail'},
+        {title: 'title1', detail: 'this is detail'},
+        {title: 'title2', detail: 'this is detail'},
+        {title: 'title1', detail: 'this is detail'},
+        {title: 'title2', detail: 'this is detail'},
         {title: 'title1', detail: 'this is detail'},
         {title: 'title2', detail: 'this is detail'},
         {title: 'title3', detail: 'this is detail'}
@@ -74,7 +78,7 @@ export default {
     //   instance.$mount('#container')
     //   this.move()
     // },
-    move: function () {
+    showLoginApply: function () {
       const loginApplyEl = this.$refs['loginApplyEl']
       console.log(this.loginApplyWidth + '  ' + this.loginApplyHeight)
       console.log('screen_width::end')
@@ -88,7 +92,7 @@ export default {
           timingFunction: 'ease',
           delay: 0
         }, function () {
-          modal.toast({message: 'animation finished.'})
+          modal.toast({message: 'animation show finished.'})
         })
       } else {
         console.log('没有找到元素')
@@ -96,20 +100,18 @@ export default {
     },
     hiddenLoginApply: function () {
       const loginApplyEl = this.$refs.loginApplyEl
-      console.log('+++' + loginApplyEl)
-      console.log(this.loginApplyWidth + '  ' + this.loginApplyHeight)
       if (loginApplyEl !== undefined) {
         animation.transition(loginApplyEl, {
           styles: {
-            backgroundColor: '#FF0000',
-            transform: 'translate(0px, ' + this.loginApplyHeight + 'px) scale(1)',
+            backgroundColor: 'rgba(255,0,0,0.5)',
+            transform: 'translate(0px, 1450px) scale(1)',
             transformOrigin: 'center center'
           },
           duration: 800,
           timingFunction: 'ease',
           delay: 0
         }, function () {
-          modal.toast({ message: 'animation finished.' })
+          modal.toast({ message: 'animation hidden finished.' })
         })
       } else {
         console.log('没有找到元素')
@@ -164,6 +166,7 @@ export default {
   }
   .content {
     background-color: #dddddd;
+    height: 100%;
     flex: 1;
   }
   .row {
@@ -172,7 +175,8 @@ export default {
     background-color: yellow;
   }
   .registerPanel {
-    position: fixed; width: 750px; height: 100%; bottom: 0px; background: rgba(255,0,0,1);;
-    transform: translate(0px, 100%) scale(0.2);
+    position: fixed; width: 750px; height: 1450px; top:0; left:0; right:0; bottom: 0px;
+    transform: translate(0px, 1450px) scale(1);
+    background-color: rgba(255,0,0,0.5);;
   }
 </style>

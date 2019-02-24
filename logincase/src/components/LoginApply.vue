@@ -1,13 +1,14 @@
 <template>
-<div class=“body”>
-  <div >
+<div class="body">
+  <!-- <div style="flex: 1; width: 750px;"></div> -->
+  <div class="panel">
     <div><text>{{icon}}</text></div>
     <div><text>{{weexname}}</text></div>
     <div class="myinfo" @click="hiddenselfbb"><text>{{getinfo}}</text></div>
     <div><text>{{nickname}}</text></div>
     <div><text>{{avator}}</text>
-    <image style="width:99px;height:99px;" src="avator"/></div>
-    <div><text>{{userinfo}}</text></div>
+    <image style="width:99px;height:99px;margin-bottom: 40px;" src="avator"/></div>
+    <div class="myinfo"><text>{{userinfo}}</text></div>
   </div>
 </div>
 </template>
@@ -29,33 +30,40 @@ export default {
   methods: {
     hiddenselfbb: function () {
       console.log('+++' + this.hiddenself + '------')
-      // this.hiddenself('bbbbbbb')
+      this.hiddenself('bbbbbbb')
       // childByValue是在父组件on监听的方法
       // 第二个参数this.childValue是需要传的值
-      this.$emit('hiddenLoginApply', 'aaaaaa')
+      // this.$emit('hiddenLoginApply', 'aaaaaa')
     }
   },
   mounted () {
     const userinfo = this.$userinfo
-    this.avator = userinfo.avator
-    this.nickname = userinfo.realname
+    if (userinfo !== undefined) {
+      console.log(userinfo)
+      this.avator = userinfo.avator
+      this.nickname = userinfo.realname
+    }
   }
 }
 </script>
 
 <style scoped>
   .body {
-    position: absolute;
-    flex: 1;
+    position: fixed;
     width: 750px;
-    background: rgba(255,0,0,1);
-    /* background-color: rgba(255,0,0,1);; */
+    /* background: rgba(255,0,0,0.5); */
+    background-color: rgba(255,0,0,0.5);
     z-index: 1999;
     overflow: hidden;
   }
+  .panel {
+    position: absolute;
+    margin-bottom: 0px;
+    bottom: 0px;
+    widows: 750px;
+  }
   .myinfo {
-    width: 300px;
-    height: 300px;
+    width: 750px;
     background-color: green;
   }
 </style>

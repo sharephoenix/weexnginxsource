@@ -1,5 +1,10 @@
 /* global Vue */
 import UserModel from '@/models/UserModel'
+// const meta = weex.requireModule('meta')
+// meta.setViewport({
+//   width: 640,
+//   height: 1251
+// })
 
 Vue.userModel = Vue.prototype.$userInfo = UserModel
 

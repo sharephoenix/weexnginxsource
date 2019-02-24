@@ -137,6 +137,12 @@ var _UserModel2 = _interopRequireDefault(_UserModel);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// const meta = weex.requireModule('meta')
+// meta.setViewport({
+//   width: 640,
+//   height: 1251
+// })
+
 Vue.userModel = Vue.prototype.$userInfo = _UserModel2.default;
 
 /* weex initialized here, please do not move this line */
@@ -145,7 +151,7 @@ Vue.userModel = Vue.prototype.$userInfo = _UserModel2.default;
 var _require = __webpack_require__(2),
     router = _require.router;
 
-var App = __webpack_require__(12);
+var App = __webpack_require__(16);
 /* eslint-disable no-new */
 new Vue(Vue.util.extend({ el: '#root', router: router }, App));
 router.push('/');
@@ -170,7 +176,7 @@ var _WXLogin = __webpack_require__(4);
 
 var _WXLogin2 = _interopRequireDefault(_WXLogin);
 
-var _UserInfo = __webpack_require__(8);
+var _UserInfo = __webpack_require__(12);
 
 var _UserInfo2 = _interopRequireDefault(_UserInfo);
 
@@ -2830,7 +2836,7 @@ __vue_styles__.push(__webpack_require__(5)
 __vue_exports__ = __webpack_require__(6)
 
 /* template */
-var __vue_template__ = __webpack_require__(7)
+var __vue_template__ = __webpack_require__(11)
 __vue_options__ = __vue_exports__ = __vue_exports__ || {}
 if (
   typeof __vue_exports__.default === "object" ||
@@ -2842,7 +2848,7 @@ __vue_options__ = __vue_exports__ = __vue_exports__.default
 if (typeof __vue_options__ === "function") {
   __vue_options__ = __vue_options__.options
 }
-__vue_options__.__file = "/Users/apple/weexnginxsource/logincase/src/components/WXLogin.vue"
+__vue_options__.__file = "/Users/phoenix/weexnginxsource/logincase/src/components/WXLogin.vue"
 __vue_options__.render = __vue_template__.render
 __vue_options__.staticRenderFns = __vue_template__.staticRenderFns
 __vue_options__._scopeId = "data-v-533941b0"
@@ -2894,6 +2900,7 @@ module.exports = {
   },
   "content": {
     "backgroundColor": "#dddddd",
+    "height": 100,
     "flex": 1
   },
   "row": {
@@ -2903,10 +2910,13 @@ module.exports = {
   "registerPanel": {
     "position": "fixed",
     "width": "750",
-    "height": 100,
+    "height": "1450",
+    "top": 0,
+    "left": 0,
+    "right": 0,
     "bottom": "0",
-    "background": "rgba(255,0,0,1)",
-    "transform": "translate(0px, 100%) scale(0.2)"
+    "transform": "translate(0px, 1450px) scale(1)",
+    "backgroundColor": "rgba(255,0,0,0.5)"
   }
 }
 
@@ -2921,7 +2931,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _LoginApply = __webpack_require__(16);
+var _LoginApply = __webpack_require__(7);
 
 var _LoginApply2 = _interopRequireDefault(_LoginApply);
 
@@ -2966,7 +2976,7 @@ exports.default = {
       user: {
         message: ''
       },
-      list: [{ title: 'title0', detail: 'this is detail' }, { title: 'title1', detail: 'this is detail' }, { title: 'title2', detail: 'this is detail' }, { title: 'title3', detail: 'this is detail' }]
+      list: [{ title: 'title0', detail: 'this is detail' }, { title: 'title1', detail: 'this is detail' }, { title: 'title2', detail: 'this is detail' }, { title: 'title1', detail: 'this is detail' }, { title: 'title2', detail: 'this is detail' }, { title: 'title1', detail: 'this is detail' }, { title: 'title2', detail: 'this is detail' }, { title: 'title3', detail: 'this is detail' }]
     };
   },
 
@@ -2998,7 +3008,7 @@ exports.default = {
     //   instance.$mount('#container')
     //   this.move()
     // },
-    move: function move() {
+    showLoginApply: function showLoginApply() {
       var loginApplyEl = this.$refs['loginApplyEl'];
       console.log(this.loginApplyWidth + '  ' + this.loginApplyHeight);
       console.log('screen_width::end');
@@ -3012,7 +3022,7 @@ exports.default = {
           timingFunction: 'ease',
           delay: 0
         }, function () {
-          modal.toast({ message: 'animation finished.' });
+          modal.toast({ message: 'animation show finished.' });
         });
       } else {
         console.log('没有找到元素');
@@ -3020,20 +3030,18 @@ exports.default = {
     },
     hiddenLoginApply: function hiddenLoginApply() {
       var loginApplyEl = this.$refs.loginApplyEl;
-      console.log('+++' + loginApplyEl);
-      console.log(this.loginApplyWidth + '  ' + this.loginApplyHeight);
       if (loginApplyEl !== undefined) {
         animation.transition(loginApplyEl, {
           styles: {
-            backgroundColor: '#FF0000',
-            transform: 'translate(0px, ' + this.loginApplyHeight + 'px) scale(1)',
+            backgroundColor: 'rgba(255,0,0,0.5)',
+            transform: 'translate(0px, 1450px) scale(1)',
             transformOrigin: 'center center'
           },
           duration: 800,
           timingFunction: 'ease',
           delay: 0
         }, function () {
-          modal.toast({ message: 'animation finished.' });
+          modal.toast({ message: 'animation hidden finished.' });
         });
       } else {
         console.log('没有找到元素');
@@ -3057,6 +3065,162 @@ exports.default = {
 
 /***/ }),
 /* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __vue_exports__, __vue_options__
+var __vue_styles__ = []
+
+/* styles */
+__vue_styles__.push(__webpack_require__(8)
+)
+
+/* script */
+__vue_exports__ = __webpack_require__(9)
+
+/* template */
+var __vue_template__ = __webpack_require__(10)
+__vue_options__ = __vue_exports__ = __vue_exports__ || {}
+if (
+  typeof __vue_exports__.default === "object" ||
+  typeof __vue_exports__.default === "function"
+) {
+if (Object.keys(__vue_exports__).some(function (key) { return key !== "default" && key !== "__esModule" })) {console.error("named exports are not supported in *.vue files.")}
+__vue_options__ = __vue_exports__ = __vue_exports__.default
+}
+if (typeof __vue_options__ === "function") {
+  __vue_options__ = __vue_options__.options
+}
+__vue_options__.__file = "/Users/phoenix/weexnginxsource/logincase/src/components/LoginApply.vue"
+__vue_options__.render = __vue_template__.render
+__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
+__vue_options__._scopeId = "data-v-f1c8a596"
+__vue_options__.style = __vue_options__.style || {}
+__vue_styles__.forEach(function (module) {
+  for (var name in module) {
+    __vue_options__.style[name] = module[name]
+  }
+})
+if (typeof __register_static_styles__ === "function") {
+  __register_static_styles__(__vue_options__._scopeId, __vue_styles__)
+}
+
+module.exports = __vue_exports__
+
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports) {
+
+module.exports = {
+  "body": {
+    "position": "fixed",
+    "width": "750",
+    "backgroundColor": "rgba(255,0,0,0.5)",
+    "zIndex": 1999,
+    "overflow": "hidden"
+  },
+  "panel": {
+    "position": "absolute",
+    "marginBottom": "0",
+    "bottom": "0",
+    "widows": "750"
+  },
+  "myinfo": {
+    "width": "750",
+    "backgroundColor": "#008000"
+  }
+}
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+exports.default = {
+  name: 'LoginApply',
+  props: ['hiddenself'],
+  data: function data() {
+    return {
+      icon: '',
+      weexname: '',
+      getinfo: '获取你的昵称，头像，地区',
+      nickname: 'nickname',
+      avator: '头像',
+      userinfo: '晓黑板个人信息'
+    };
+  },
+
+  methods: {
+    hiddenselfbb: function hiddenselfbb() {
+      console.log('+++' + this.hiddenself + '------');
+      this.hiddenself('bbbbbbb');
+      // childByValue是在父组件on监听的方法
+      // 第二个参数this.childValue是需要传的值
+      // this.$emit('hiddenLoginApply', 'aaaaaa')
+    }
+  },
+  mounted: function mounted() {
+    var userinfo = this.$userinfo;
+    if (userinfo !== undefined) {
+      console.log(userinfo);
+      this.avator = userinfo.avator;
+      this.nickname = userinfo.realname;
+    }
+  }
+};
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: ["body"]
+  }, [_c('div', {
+    staticClass: ["panel"]
+  }, [_c('div', [_c('text', [_vm._v(_vm._s(_vm.icon))])]), _c('div', [_c('text', [_vm._v(_vm._s(_vm.weexname))])]), _c('div', {
+    staticClass: ["myinfo"],
+    on: {
+      "click": _vm.hiddenselfbb
+    }
+  }, [_c('text', [_vm._v(_vm._s(_vm.getinfo))])]), _c('div', [_c('text', [_vm._v(_vm._s(_vm.nickname))])]), _c('div', [_c('text', [_vm._v(_vm._s(_vm.avator))]), _c('image', {
+    staticStyle: {
+      width: "99px",
+      height: "99px",
+      marginBottom: "40px"
+    },
+    attrs: {
+      "src": "avator"
+    }
+  })]), _c('div', {
+    staticClass: ["myinfo"]
+  }, [_c('text', [_vm._v(_vm._s(_vm.userinfo))])])])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+
+/***/ }),
+/* 11 */
 /***/ (function(module, exports) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -3069,7 +3233,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._m(0), _c('div', {
     staticClass: ["register"],
     on: {
-      "click": _vm.move
+      "click": _vm.showLoginApply
     }
   }, [_c('text', {
     staticClass: ["registertext"]
@@ -3086,9 +3250,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: ["registerPanel"],
     attrs: {
       "hiddenself": _vm.hiddenself
-    },
-    on: {
-      "hiddenLoginApply": _vm.hiddenLoginApply
     }
   })], 1)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -3096,28 +3257,28 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: ["avator"]
   }, [_c('img', {
     attrs: {
-      "src": "user.avatar"
+      "src": ""
     }
   })])
 }]}
 module.exports.render._withStripped = true
 
 /***/ }),
-/* 8 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __vue_exports__, __vue_options__
 var __vue_styles__ = []
 
 /* styles */
-__vue_styles__.push(__webpack_require__(9)
+__vue_styles__.push(__webpack_require__(13)
 )
 
 /* script */
-__vue_exports__ = __webpack_require__(10)
+__vue_exports__ = __webpack_require__(14)
 
 /* template */
-var __vue_template__ = __webpack_require__(11)
+var __vue_template__ = __webpack_require__(15)
 __vue_options__ = __vue_exports__ = __vue_exports__ || {}
 if (
   typeof __vue_exports__.default === "object" ||
@@ -3129,7 +3290,7 @@ __vue_options__ = __vue_exports__ = __vue_exports__.default
 if (typeof __vue_options__ === "function") {
   __vue_options__ = __vue_options__.options
 }
-__vue_options__.__file = "/Users/apple/weexnginxsource/logincase/src/components/UserInfo.vue"
+__vue_options__.__file = "/Users/phoenix/weexnginxsource/logincase/src/components/UserInfo.vue"
 __vue_options__.render = __vue_template__.render
 __vue_options__.staticRenderFns = __vue_template__.staticRenderFns
 __vue_options__._scopeId = "data-v-04a5d2c9"
@@ -3147,7 +3308,7 @@ module.exports = __vue_exports__
 
 
 /***/ }),
-/* 9 */
+/* 13 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -3162,7 +3323,7 @@ module.exports = {
 }
 
 /***/ }),
-/* 10 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3206,7 +3367,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 11 */
+/* 15 */
 /***/ (function(module, exports) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -3216,112 +3377,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "click": _vm.toRouterPop
     }
   }, [_vm._v(" to pop view ")])])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-
-/***/ }),
-/* 12 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var __vue_exports__, __vue_options__
-var __vue_styles__ = []
-
-/* styles */
-__vue_styles__.push(__webpack_require__(13)
-)
-
-/* script */
-__vue_exports__ = __webpack_require__(14)
-
-/* template */
-var __vue_template__ = __webpack_require__(15)
-__vue_options__ = __vue_exports__ = __vue_exports__ || {}
-if (
-  typeof __vue_exports__.default === "object" ||
-  typeof __vue_exports__.default === "function"
-) {
-if (Object.keys(__vue_exports__).some(function (key) { return key !== "default" && key !== "__esModule" })) {console.error("named exports are not supported in *.vue files.")}
-__vue_options__ = __vue_exports__ = __vue_exports__.default
-}
-if (typeof __vue_options__ === "function") {
-  __vue_options__ = __vue_options__.options
-}
-__vue_options__.__file = "/Users/apple/weexnginxsource/logincase/src/index.vue"
-__vue_options__.render = __vue_template__.render
-__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
-__vue_options__._scopeId = "data-v-2964abc9"
-__vue_options__.style = __vue_options__.style || {}
-__vue_styles__.forEach(function (module) {
-  for (var name in module) {
-    __vue_options__.style[name] = module[name]
-  }
-})
-if (typeof __register_static_styles__ === "function") {
-  __register_static_styles__(__vue_options__._scopeId, __vue_styles__)
-}
-
-module.exports = __vue_exports__
-
-
-/***/ }),
-/* 13 */
-/***/ (function(module, exports) {
-
-module.exports = {
-  "logo": {
-    "width": "424",
-    "height": "200"
-  },
-  "greeting": {
-    "textAlign": "center",
-    "marginTop": "70",
-    "fontSize": "50",
-    "color": "#41B883"
-  },
-  "message": {
-    "marginTop": "30",
-    "marginRight": "30",
-    "marginBottom": "30",
-    "marginLeft": "30",
-    "fontSize": "32",
-    "color": "#727272"
-  }
-}
-
-/***/ }),
-/* 14 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-//
-//
-//
-//
-//
-//
-
-exports.default = {
-  name: 'App',
-  data: function data() {
-    return {
-      logo: 'https://gw.alicdn.com/tfs/TB1yopEdgoQMeJjy1XaXXcSsFXa-640-302.png'
-    };
-  }
-};
-
-/***/ }),
-/* 15 */
-/***/ (function(module, exports) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: ["wrapper"]
-  }, [_c('router-view')], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 
@@ -3352,10 +3407,10 @@ __vue_options__ = __vue_exports__ = __vue_exports__.default
 if (typeof __vue_options__ === "function") {
   __vue_options__ = __vue_options__.options
 }
-__vue_options__.__file = "/Users/apple/weexnginxsource/logincase/src/components/LoginApply.vue"
+__vue_options__.__file = "/Users/phoenix/weexnginxsource/logincase/src/index.vue"
 __vue_options__.render = __vue_template__.render
 __vue_options__.staticRenderFns = __vue_template__.staticRenderFns
-__vue_options__._scopeId = "data-v-f1c8a596"
+__vue_options__._scopeId = "data-v-2964abc9"
 __vue_options__.style = __vue_options__.style || {}
 __vue_styles__.forEach(function (module) {
   for (var name in module) {
@@ -3374,18 +3429,23 @@ module.exports = __vue_exports__
 /***/ (function(module, exports) {
 
 module.exports = {
-  "body": {
-    "position": "absolute",
-    "flex": 1,
-    "width": "750",
-    "background": "rgba(255,0,0,1)",
-    "zIndex": 1999,
-    "overflow": "hidden"
+  "logo": {
+    "width": "424",
+    "height": "200"
   },
-  "myinfo": {
-    "width": "300",
-    "height": "300",
-    "backgroundColor": "#008000"
+  "greeting": {
+    "textAlign": "center",
+    "marginTop": "70",
+    "fontSize": "50",
+    "color": "#41B883"
+  },
+  "message": {
+    "marginTop": "30",
+    "marginRight": "30",
+    "marginBottom": "30",
+    "marginLeft": "30",
+    "fontSize": "32",
+    "color": "#727272"
   }
 }
 
@@ -3405,42 +3465,13 @@ Object.defineProperty(exports, "__esModule", {
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 
 exports.default = {
-  name: 'LoginApply',
-  props: ['hiddenself'],
+  name: 'App',
   data: function data() {
     return {
-      icon: '',
-      weexname: '',
-      getinfo: '获取你的昵称，头像，地区',
-      nickname: 'nickname',
-      avator: '头像',
-      userinfo: '晓黑板个人信息'
+      logo: 'https://gw.alicdn.com/tfs/TB1yopEdgoQMeJjy1XaXXcSsFXa-640-302.png'
     };
-  },
-
-  methods: {
-    hiddenselfbb: function hiddenselfbb() {
-      console.log('+++' + this.hiddenself + '------');
-      // this.hiddenself('bbbbbbb')
-      // childByValue是在父组件on监听的方法
-      // 第二个参数this.childValue是需要传的值
-      this.$emit('hiddenLoginApply', 'aaaaaa');
-    }
-  },
-  mounted: function mounted() {
-    var userinfo = this.$userinfo;
-    this.avator = userinfo.avator;
-    this.nickname = userinfo.realname;
   }
 };
 
@@ -3450,21 +3481,8 @@ exports.default = {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: ["“body”"]
-  }, [_c('div', [_c('div', [_c('text', [_vm._v(_vm._s(_vm.icon))])]), _c('div', [_c('text', [_vm._v(_vm._s(_vm.weexname))])]), _c('div', {
-    staticClass: ["myinfo"],
-    on: {
-      "click": _vm.hiddenselfbb
-    }
-  }, [_c('text', [_vm._v(_vm._s(_vm.getinfo))])]), _c('div', [_c('text', [_vm._v(_vm._s(_vm.nickname))])]), _c('div', [_c('text', [_vm._v(_vm._s(_vm.avator))]), _c('image', {
-    staticStyle: {
-      width: "99px",
-      height: "99px"
-    },
-    attrs: {
-      "src": "avator"
-    }
-  })]), _c('div', [_c('text', [_vm._v(_vm._s(_vm.userinfo))])])])])
+    staticClass: ["wrapper"]
+  }, [_c('router-view')], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 

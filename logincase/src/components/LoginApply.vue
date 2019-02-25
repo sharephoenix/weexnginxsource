@@ -1,10 +1,10 @@
 <template>
-<div class="body">
+<div class="body" @click="hiddenselfbb">
   <!-- <div style="flex: 1; width: 750px;"></div> -->
   <div class="panel">
     <div><text>{{icon}}</text></div>
     <div><text>{{weexname}}</text></div>
-    <div class="myinfo" @click="hiddenselfbb"><text>{{getinfo}}</text></div>
+    <div @click="testaction" class="myinfo"><text>{{getinfo}}</text></div>
     <div><text>{{nickname}}</text></div>
     <div><text>{{avator}}</text>
     <image style="width:99px;height:99px;margin-bottom: 40px;" src="avator"/></div>
@@ -34,6 +34,9 @@ export default {
       // childByValue是在父组件on监听的方法
       // 第二个参数this.childValue是需要传的值
       // this.$emit('hiddenLoginApply', 'aaaaaa')
+    },
+    testaction: function () {
+      console.log('testactiontestactiontestaction')
     }
   },
   mounted () {

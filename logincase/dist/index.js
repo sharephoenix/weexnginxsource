@@ -2933,8 +2933,6 @@ var _LoginApply2 = _interopRequireDefault(_LoginApply);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// const animation = weex.requireModule('animation')
-
 var modal = weex.requireModule('modal'); //
 //
 //
@@ -2974,7 +2972,7 @@ exports.default = {
       user: {
         message: ''
       },
-      list: [{ title: 'title0', detail: 'this is detail' }, { title: 'title1', detail: 'this is detail' }, { title: 'title2', detail: 'this is detail' }, { title: 'title1', detail: 'this is detail' }, { title: 'title2', detail: 'this is detail' }, { title: 'title1', detail: 'this is detail' }, { title: 'title2', detail: 'this is detail' }, { title: 'title3', detail: 'this is detail' }]
+      list: [{ id: 0, title: 'title0', detail: 'this is detail' }, { id: 1, title: 'title1', detail: 'this is detail' }, { id: 2, title: 'title2', detail: 'this is detail' }, { id: 3, title: 'title1', detail: 'this is detail' }, { id: 4, title: 'title2', detail: 'this is detail' }, { id: 5, title: 'title1', detail: 'this is detail' }, { id: 6, title: 'title2', detail: 'this is detail' }, { id: 7, title: 'title3', detail: 'this is detail' }]
     };
   },
 
@@ -3263,7 +3261,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: ["scroller"]
   }, _vm._l((_vm.list), function(item) {
     return _c('div', {
-      key: item.title
+      key: item.id
     }, [_c('div', {
       staticClass: ["row"]
     }, [_c('text', [_vm._v(" " + _vm._s(item) + " ")])])])

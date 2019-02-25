@@ -6,7 +6,7 @@
     </div>
     <div class="content">
       <scroller class="scroller">
-        <div v-for="item in list" v-bind:key="item.title">
+        <div v-for="item in list" v-bind:key="item.id">
           <div class="row"> <text> {{item}} </text> </div>
         </div>
       </scroller>
@@ -19,7 +19,6 @@
 <script>
 // import Vue from 'vue'
 import LoginApply from '@/components/LoginApply'
-// const animation = weex.requireModule('animation')
 
 const modal = weex.requireModule('modal')
 const loginInfo = weex.requireModule('XHBLoginInfo')
@@ -41,14 +40,14 @@ export default {
         message: ''
       },
       list: [
-        {title: 'title0', detail: 'this is detail'},
-        {title: 'title1', detail: 'this is detail'},
-        {title: 'title2', detail: 'this is detail'},
-        {title: 'title1', detail: 'this is detail'},
-        {title: 'title2', detail: 'this is detail'},
-        {title: 'title1', detail: 'this is detail'},
-        {title: 'title2', detail: 'this is detail'},
-        {title: 'title3', detail: 'this is detail'}
+        {id: 0, title: 'title0', detail: 'this is detail'},
+        {id: 1, title: 'title1', detail: 'this is detail'},
+        {id: 2, title: 'title2', detail: 'this is detail'},
+        {id: 3, title: 'title1', detail: 'this is detail'},
+        {id: 4, title: 'title2', detail: 'this is detail'},
+        {id: 5, title: 'title1', detail: 'this is detail'},
+        {id: 6, title: 'title2', detail: 'this is detail'},
+        {id: 7, title: 'title3', detail: 'this is detail'}
       ]
     }
   },

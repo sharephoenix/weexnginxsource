@@ -12,7 +12,7 @@
       </scroller>
     </div>
     <!-- <LoginApply ref="test" class="registerPanel"></LoginApply> -->
-    <LoginApply ref="loginApplyEl" class="registerPanel" :hiddenself="hiddenself" v-if="visibleapply"></LoginApply>
+    <LoginApply ref="loginApplyEl" class="registerPanel" :hiddenself="hiddenself"></LoginApply>
   </div>
 </template>
 
@@ -40,7 +40,6 @@ export default {
       user: {
         message: ''
       },
-      visibleapply: true,
       list: [
         {title: 'title0', detail: 'this is detail'},
         {title: 'title1', detail: 'this is detail'},
@@ -76,10 +75,12 @@ export default {
       console.log('aactionaaction')
     },
     showLoginApply: function () {
-      this.visibleapply = true
+      const panel = this.$refs.loginApplyEl
+      panel.vivible = true
     },
     hiddenLoginApply: function () {
-      this.visibleapply = false
+      const panel = this.$refs.loginApplyEl
+      panel.vivible = false
     },
     hiddenself: function (params) {
       this.hiddenLoginApply()

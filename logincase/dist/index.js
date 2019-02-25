@@ -2974,7 +2974,6 @@ exports.default = {
       user: {
         message: ''
       },
-      visibleapply: true,
       list: [{ title: 'title0', detail: 'this is detail' }, { title: 'title1', detail: 'this is detail' }, { title: 'title2', detail: 'this is detail' }, { title: 'title1', detail: 'this is detail' }, { title: 'title2', detail: 'this is detail' }, { title: 'title1', detail: 'this is detail' }, { title: 'title2', detail: 'this is detail' }, { title: 'title3', detail: 'this is detail' }]
     };
   },
@@ -3002,10 +3001,12 @@ exports.default = {
       console.log('aactionaaction');
     },
     showLoginApply: function showLoginApply() {
-      this.visibleapply = true;
+      var panel = this.$refs.loginApplyEl;
+      panel.vivible = true;
     },
     hiddenLoginApply: function hiddenLoginApply() {
-      this.visibleapply = false;
+      var panel = this.$refs.loginApplyEl;
+      panel.vivible = false;
     },
     hiddenself: function hiddenself(params) {
       this.hiddenLoginApply();
@@ -3073,16 +3074,19 @@ module.exports = __vue_exports__
 module.exports = {
   "body": {
     "position": "fixed",
-    "width": "750",
-    "backgroundColor": "rgba(255,0,0,0.5)",
-    "zIndex": 1999,
-    "overflow": "hidden"
+    "top": 0,
+    "left": 0,
+    "right": 0,
+    "bottom": 0,
+    "backgroundColor": "rgba(255,0,0,0.5)"
   },
   "panel": {
     "position": "absolute",
     "marginBottom": "0",
     "bottom": "0",
-    "widows": "750"
+    "left": "0",
+    "right": "0",
+    "backgroundColor": "#0000FF"
   },
   "myinfo": {
     "width": "750",
@@ -3115,6 +3119,11 @@ Object.defineProperty(exports, "__esModule", {
 //
 //
 //
+//
+//
+
+var animation = weex.requireModule('animation');
+var modal = weex.requireModule('modal');
 
 exports.default = {
   name: 'LoginApply',
@@ -3126,20 +3135,60 @@ exports.default = {
       getinfo: '获取你的昵称，头像，地区',
       nickname: 'nickname',
       avator: '头像',
-      userinfo: '晓黑板个人信息'
+      userinfo: '晓黑板个人信息',
+      vivible: false
     };
   },
 
   methods: {
+    showself: function showself() {
+      var _visible = !this.vivible;
+      if (_visible === false) {
+        this.hiddenself();
+      } else {
+        this.vivible = _visible;
+      }
+    },
+    hideself: function hideself() {
+      var ref1 = this.$refs.panel;
+      var _this = this;
+      animation.transition(ref1, {
+        styles: {
+          transform: 'translate(0px, 300px)'
+        },
+        duration: 800,
+        timingFunction: 'ease',
+        needLayout: false,
+        delay: 3
+      }, function () {
+        _this.vivible = false;
+        modal.toast({ message: 'animation finished.' });
+      });
+    },
+    enter: function enter(el, done) {
+      console.log('aaaaa');
+      var ref1 = this.$refs.panel;
+      animation.transition(ref1, {
+        styles: {
+          transform: 'translate(0px, 0px)'
+        },
+        duration: 800,
+        timingFunction: 'ease',
+        needLayout: false,
+        delay: 3
+      }, function () {
+        modal.toast({ message: 'animation finished.' });
+      });
+    },
+    nothingaciton: function nothingaciton() {
+      console.log('nothing');
+    },
     hiddenselfbb: function hiddenselfbb() {
       console.log('+++' + this.hiddenself + '------');
       this.hiddenself('bbbbbbb');
       // childByValue是在父组件on监听的方法
       // 第二个参数this.childValue是需要传的值
       // this.$emit('hiddenLoginApply', 'aaaaaa')
-    },
-    testaction: function testaction() {
-      console.log('testactiontestactiontestaction');
     }
   },
   mounted: function mounted() {
@@ -3157,18 +3206,23 @@ exports.default = {
 /***/ (function(module, exports) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
+  return (_vm.vivible) ? _c('div', {
     staticClass: ["body"],
     on: {
-      "click": _vm.hiddenselfbb
+      "click": _vm.hideself
     }
-  }, [_c('div', {
-    staticClass: ["panel"]
-  }, [_c('div', [_c('text', [_vm._v(_vm._s(_vm.icon))])]), _c('div', [_c('text', [_vm._v(_vm._s(_vm.weexname))])]), _c('div', {
-    staticClass: ["myinfo"],
+  }, [_c('transition', {
     on: {
-      "click": _vm.testaction
+      "afterEnter": _vm.enter
     }
+  }, [(_vm.vivible) ? _c('div', {
+    ref: "panel",
+    staticClass: ["panel"],
+    on: {
+      "click": _vm.nothingaciton
+    }
+  }, [_c('div', [_c('text', [_vm._v(_vm._s(_vm.icon))])]), _c('div', [_c('text', [_vm._v(_vm._s(_vm.weexname))])]), _c('div', {
+    staticClass: ["myinfo"]
   }, [_c('text', [_vm._v(_vm._s(_vm.getinfo))])]), _c('div', [_c('text', [_vm._v(_vm._s(_vm.nickname))])]), _c('div', [_c('text', [_vm._v(_vm._s(_vm.avator))]), _c('image', {
     staticStyle: {
       width: "99px",
@@ -3180,7 +3234,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })]), _c('div', {
     staticClass: ["myinfo"]
-  }, [_c('text', [_vm._v(_vm._s(_vm.userinfo))])])])])
+  }, [_c('text', [_vm._v(_vm._s(_vm.userinfo))])])]) : _vm._e()])], 1) : _vm._e()
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 
@@ -3212,13 +3266,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('div', {
       staticClass: ["row"]
     }, [_c('text', [_vm._v(" " + _vm._s(item) + " ")])])])
-  }))]), (_vm.visibleapply) ? _c('LoginApply', {
+  }))]), _c('LoginApply', {
     ref: "loginApplyEl",
     staticClass: ["registerPanel"],
     attrs: {
       "hiddenself": _vm.hiddenself
     }
-  }) : _vm._e()], 1)
+  })], 1)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: ["avator"]

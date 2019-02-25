@@ -3150,8 +3150,9 @@ exports.default = {
       }
     },
     hideself: function hideself() {
-      var ref1 = this.$refs.panel;
       var _this = this;
+
+      var ref1 = this.$refs.panel;
       animation.transition(ref1, {
         styles: {
           transform: 'translate(0px, 300px)'

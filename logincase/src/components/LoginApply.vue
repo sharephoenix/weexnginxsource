@@ -44,7 +44,6 @@ export default {
     },
     hideself: function () {
       const ref1 = this.$refs.panel
-      const _this = this
       animation.transition(ref1, {
         styles: {
           transform: 'translate(0px, 300px)'
@@ -53,8 +52,8 @@ export default {
         timingFunction: 'ease',
         needLayout: false,
         delay: 3
-      }, function () {
-        _this.vivible = false
+      }, () => {
+        this.vivible = false
         modal.toast({ message: 'animation finished.' })
       })
     },

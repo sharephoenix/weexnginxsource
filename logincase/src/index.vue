@@ -17,8 +17,9 @@ export default {
 
 <style scoped>
   .wrapper {
-    justify-content: left;
-    align-items: left;
+    position: relative;
+    background-color: black;
+    flex: 1;
   }
   .logo {
     width: 424px;

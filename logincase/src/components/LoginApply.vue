@@ -9,6 +9,8 @@
     <div><text>{{nickname}}</text></div>
     <div><text>{{avator}}</text>
     <image style="width:99px;height:99px;margin-bottom: 40px;" src="avator"/></div>
+    <wxc-button text="确认登录"
+              @wxcButtonClicked="wxcButtonClicked"></wxc-button>
     <div class="myinfo"><text>{{userinfo}}</text></div>
   </div>
   </transition>
@@ -16,12 +18,16 @@
 </template>
 
 <script>
+import { WxcButton } from 'weex-ui'
 const animation = weex.requireModule('animation')
 const modal = weex.requireModule('modal')
+const loginInfo = weex.requireModule('XHBLoginInfo')
+var storage = weex.requireModule('storage')
 
 export default {
   name: 'LoginApply',
-  props: ['hiddenself'],
+  props: ['hiddenself', 'loginstate'],
+  components: { WxcButton },
   data () {
     return {
       icon: '',
@@ -34,6 +40,25 @@ export default {
     }
   },
   methods: {
+    wxcButtonClicked (e) {
+      modal.toast({message: '获取用户信息 click'})
+      loginInfo.getLocalUserInfo((params) => {
+        // 获取登录信息，并修改标记
+        modal.toast({message: '获取用户信息 call back' + this.$userinfo})
+        const userinfo = this.$userinfo.userModelTransform(params)
+        if (userinfo.userId !== undefined) {
+          userinfo.setLoginid(userinfo.userId)
+          storage.setItem('islogin', true, event => {
+            console.log('login success!!!s')
+            this.loginstate(true)
+            this.hiddenself()
+            modal.toast({ message: '获取用户信息 success' })
+          })
+        } else {
+          modal.toast({ message: '获取用户信息 fail' })
+        }
+      })
+    },
     showself: function () {
       const _visible = !this.vivible
       if (_visible === false) {
@@ -114,6 +139,7 @@ export default {
   }
   .myinfo {
     width: 750px;
+    flex: 1;
     background-color: green;
   }
 </style>

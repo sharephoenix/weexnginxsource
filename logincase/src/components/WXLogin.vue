@@ -1,18 +1,21 @@
 <template>
-  <div id="container">
+  <div id="container" class="container">
+  <div style="position: relative; height: 100px; color: red; background-color: yellow;"><text> css style</text></div>
     <div class="top">
       <div class="avator"><img src=""/></div>
-      <div class="register" @click="showLoginApply"><text class="registertext">授权登录</text></div>
+      <div class="register" @click="routerpush"><text class="registertext">授权登录</text></div>
+      <div><text>{{ user }}</text></div>
     </div>
     <div class="content">
       <scroller class="scroller">
         <div v-for="item in list" v-bind:key="item.id">
           <div class="row"> <text> {{item}} </text> </div>
         </div>
+        <text> {{ user }} </text>
       </scroller>
     </div>
-    <!-- <LoginApply ref="test" class="registerPanel"></LoginApply> -->
-    <LoginApply ref="loginApplyEl" class="registerPanel" :hiddenself="hiddenself"></LoginApply>
+    <LoginApply ref="test" class="registerPanel"></LoginApply>
+    <LoginApply ref="loginApplyEl" class="registerPanel" :hiddenself="hiddenself" :loginstate="loginstate"></LoginApply>
   </div>
 </template>
 
@@ -23,41 +26,35 @@ import LoginApply from '@/components/LoginApply'
 const modal = weex.requireModule('modal')
 const loginInfo = weex.requireModule('XHBLoginInfo')
 const globalEvent = weex.requireModule('globalEvent')
-
-globalEvent.addEventListener('viewappear', function (e) {
-  modal.toast({ 'message': 'viewappear' + e, 'duration': 2 })
-})
-
-globalEvent.addEventListener('viewdisappear', function (e) {
-  modal.toast({ 'message': 'viewdisappear' + e, 'duration': 2 })
-})
+const XHBScan = weex.requireModule('XHBScan')
 
 export default {
   name: 'WXLogin',
   data () {
     return {
       user: {
-        message: ''
+        message: 'aaaa'
       },
       list: [
         {id: 0, title: 'title0', detail: 'this is detail'},
         {id: 1, title: 'title1', detail: 'this is detail'},
-        {id: 2, title: 'title2', detail: 'this is detail'},
-        {id: 3, title: 'title1', detail: 'this is detail'},
-        {id: 4, title: 'title2', detail: 'this is detail'},
-        {id: 5, title: 'title1', detail: 'this is detail'},
-        {id: 6, title: 'title2', detail: 'this is detail'},
-        {id: 7, title: 'title3', detail: 'this is detail'}
-      ]
+        {id: 2, title: 'title2', detail: 'this is detail'}]
     }
   },
   methods: {
+    loginstate: function (islogin) {
+      if (islogin) {
+        console.log('更新用户信息')
+        this.user = this.$userInfo.getLoginInfo()
+      } else {
+        console.log('退出登录')
+      }
+    },
     getLoginInfo: function () {
       this.user = {message: 'this is my message!!!'}
       if (loginInfo !== undefined) {
-        const _this = this
         loginInfo.getLocalUserInfo(function (params) {
-          _this.user = this.$userInfo.userModelTransform(params)
+          this.user = this.$userInfo.userModelTransform(params)
           modal.toast({ 'message': 'get geolocation' + params.name, 'duration': 2 })
         })
       }
@@ -76,6 +73,7 @@ export default {
     showLoginApply: function () {
       const panel = this.$refs.loginApplyEl
       panel.vivible = true
+      XHBScan.scanCodeInfo()
     },
     hiddenLoginApply: function () {
       const panel = this.$refs.loginApplyEl
@@ -84,20 +82,36 @@ export default {
     hiddenself: function (params) {
       this.hiddenLoginApply()
       console.log(params + '@@@@@')
+    },
+    log: function () {
+      console.log('aaaaaaaaaaaaajjjjjjj')
     }
   },
   components: {
     LoginApply
   },
   mounted () {
-    this.getLoginInfo()
+    // this.getLoginInfo()
     this.loginApplyWidth = this.$getConfig().env.deviceWidth
     this.loginApplyHeight = this.$getConfig().env.deviceHeight
+    globalEvent.addEventListener('wxCallBack', (e) => {
+      this.user = e
+    })
+  },
+  unmounted () {
+    const globalEvent = weex.requireModule('globalEvent')
+    globalEvent.removeEventListener()
   }
 }
 </script>
 
 <style scoped>
+  .container {
+    position: relative;
+    background-color: blue;
+    flex: 1;
+    color: red;
+  }
   .top {
     background-color: #00B4FF;
     height: 200px;
@@ -111,14 +125,13 @@ export default {
     border-radius: 75px;
   }
   .register {
-    display: inline-block;
     position: absolute;
     background-color: yellow;
     line-height: 150px;
     margin-left: 200px;
     margin-top: 75px;
-    height: 50px;
-    width: 200px;
+    height: 40px;
+    width: 420px;
     border-radius: 3px;
     /* transform: translate(250px, 1000px) scale(1.5); */
   }
@@ -129,7 +142,16 @@ export default {
   }
   .content {
     background-color: #dddddd;
+    width: 750px;
     flex: 1;
+  }
+  .scroller {
+    position: absolute;
+    margin: 0 0 0 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
   }
   .row {
     height: auto;

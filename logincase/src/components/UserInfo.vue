@@ -1,7 +1,7 @@
 <template>
   <div>
     <text> {{detail}} </text>
-    <div class="buttoncls" @click="toRouterPop"> to pop view </div>
+    <div class="buttoncls" @click="toRouterPop"> <text> to pop view </text></div>
   </div>
 </template>
 
@@ -10,7 +10,7 @@ import UserModel from '@/models/UserModel'
 const modal = weex.requireModule('modal')
 
 export default {
-  name: 'UserInfo',
+  // name: 'UserInfo',
   data () {
     return {
       detail: 'this is my first detail'

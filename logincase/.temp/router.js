@@ -10,12 +10,14 @@ export const router = new Router({
   routes: [
     {
       path: '/',
-      name: 'WXLogin',
+      redirect: '/login'
+    },
+    {
+      path: '/login',
       component: WXLogin
     },
     {
       path: '/userinfo',
-      name: 'UserInfo',
       component: UserInfo
     }
   ]

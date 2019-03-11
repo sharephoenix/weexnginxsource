@@ -5,19 +5,20 @@
       <div class="register" @click="showLoginApply"><text class="registertext">授权登录</text></div>
     </div>
     <div class="content">
-    <div v-for="item in list" v-bind:key="item.title">
-      <div class="row"> <text> {{item}} </text> </div>
-    </div>
+      <scroller class="scroller">
+        <div v-for="item in list" v-bind:key="item.id">
+          <div class="row"> <text> {{item}} </text> </div>
+        </div>
+      </scroller>
     </div>
     <!-- <LoginApply ref="test" class="registerPanel"></LoginApply> -->
-    <LoginApply ref="loginApplyEl" class="registerPanel" :hiddenself="hiddenself" ></LoginApply>
+    <LoginApply ref="loginApplyEl" class="registerPanel" :hiddenself="hiddenself"></LoginApply>
   </div>
 </template>
 
 <script>
 // import Vue from 'vue'
 import LoginApply from '@/components/LoginApply'
-const animation = weex.requireModule('animation')
 
 const modal = weex.requireModule('modal')
 const loginInfo = weex.requireModule('XHBLoginInfo')
@@ -39,14 +40,14 @@ export default {
         message: ''
       },
       list: [
-        {title: 'title0', detail: 'this is detail'},
-        {title: 'title1', detail: 'this is detail'},
-        {title: 'title2', detail: 'this is detail'},
-        {title: 'title1', detail: 'this is detail'},
-        {title: 'title2', detail: 'this is detail'},
-        {title: 'title1', detail: 'this is detail'},
-        {title: 'title2', detail: 'this is detail'},
-        {title: 'title3', detail: 'this is detail'}
+        {id: 0, title: 'title0', detail: 'this is detail'},
+        {id: 1, title: 'title1', detail: 'this is detail'},
+        {id: 2, title: 'title2', detail: 'this is detail'},
+        {id: 3, title: 'title1', detail: 'this is detail'},
+        {id: 4, title: 'title2', detail: 'this is detail'},
+        {id: 5, title: 'title1', detail: 'this is detail'},
+        {id: 6, title: 'title2', detail: 'this is detail'},
+        {id: 7, title: 'title3', detail: 'this is detail'}
       ]
     }
   },
@@ -72,51 +73,13 @@ export default {
     aaction: function () {
       console.log('aactionaaction')
     },
-    // insert () {
-    //   const BcConstructor = Vue.extend(LoginApply)
-    //   const instance = new BcConstructor()
-    //   instance.$mount('#container')
-    //   this.move()
-    // },
     showLoginApply: function () {
-      const loginApplyEl = this.$refs['loginApplyEl']
-      console.log(this.loginApplyWidth + '  ' + this.loginApplyHeight)
-      console.log('screen_width::end')
-      if (loginApplyEl !== undefined) {
-        animation.transition(loginApplyEl, {
-          styles: {
-            transform: 'translate(0px, 0px) scale(1)',
-            transformOrigin: 'center center'
-          },
-          duration: 800,
-          timingFunction: 'ease',
-          delay: 0
-        }, function () {
-          modal.toast({message: 'animation show finished.'})
-        })
-      } else {
-        console.log('没有找到元素')
-      }
+      const panel = this.$refs.loginApplyEl
+      panel.vivible = true
     },
     hiddenLoginApply: function () {
-      const loginApplyEl = this.$refs.loginApplyEl
-      if (loginApplyEl !== undefined) {
-        animation.transition(loginApplyEl, {
-          styles: {
-            backgroundColor: 'rgba(255,0,0,0.5)',
-            transform: 'translate(0px, 100%) scale(1)',
-            transformOrigin: 'center center'
-          },
-          duration: 800,
-          timingFunction: 'ease',
-          delay: 0
-        }, function () {
-          modal.toast({ message: 'animation hidden finished.' })
-        })
-      } else {
-        console.log('没有找到元素')
-      }
-      console.log('action')
+      const panel = this.$refs.loginApplyEl
+      panel.vivible = false
     },
     hiddenself: function (params) {
       this.hiddenLoginApply()
@@ -166,7 +129,6 @@ export default {
   }
   .content {
     background-color: #dddddd;
-    height: 100%;
     flex: 1;
   }
   .row {
@@ -175,8 +137,11 @@ export default {
     background-color: yellow;
   }
   .registerPanel {
-    position: fixed; width: 750px; height: 100%; top:0; left:0; right:0; bottom: 0px;
-    transform: translate(0px, 100%) scale(1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     background-color: rgba(255,0,0,0.5);;
   }
 </style>
